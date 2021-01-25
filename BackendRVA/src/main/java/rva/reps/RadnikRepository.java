@@ -1,0 +1,16 @@
+package rva.reps;
+
+import java.util.Collection;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import rva.jpa.Radnik;
+import rva.jpa.Sektor;
+
+public interface RadnikRepository extends JpaRepository<Radnik, Integer>{
+	Collection<Radnik> findByImeContainingIgnoreCase (String ime);
+	Collection<Radnik> findBySektor (Sektor s);
+	@Query(value = "select id from radnik where sektor = ?1", nativeQuery = true)
+	Integer nextRBr (int idSektora);
+}
